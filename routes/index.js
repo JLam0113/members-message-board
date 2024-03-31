@@ -1,9 +1,26 @@
-var express = require('express');
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
+const passport = require("passport");
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get("/", (req, res) => {
+  res.render("index", { user: req.user });
+});
+
+router.post(
+  "/log-in",
+  passport.authenticate("local", {
+      successRedirect: "/",
+      failureRedirect: "/"
+  })
+);
+
+router.get("/log-out", (req, res, next) => {
+  req.logout((err) => {
+      if (err) {
+          return next(err);
+      }
+      res.redirect("/");
+  });
 });
 
 module.exports = router;
