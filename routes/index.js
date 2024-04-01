@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
+const Message = require("../models/message");
+
+// TODO Message routes
 
 router.get("/", (req, res) => {
   res.render("index", { user: req.user });
